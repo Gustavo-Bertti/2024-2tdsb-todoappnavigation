@@ -5,16 +5,26 @@ import {RootStackParamList, Task} from '../App';
 
 const ViewTasks = ({navigation, route}: NativeStackScreenProps<RootStackParamList>) =>{
 
-    const {params} = route;
-    const tasks = params;
+    const { params } = route;
+    const tasks: Task[] = params as Task[] || [];
 
-    return(
-        <ScrollView>
-            
+  const renderTask = ({ item }: { item: Task }) => (
+    <Text>{item.name}</Text> 
+  );
 
-            
-        </ScrollView>
-    );
+  return (
+    <ScrollView>
+      <FlatList
+        data={tasks}
+        renderItem={renderTask}
+        keyExtractor={(item, index) => index.toString()}
+      />
+      <Button
+        title="+ TAREFA"
+        onPress={() => navigation.navigate("RegisterTask")}
+      />
+    </ScrollView>
+  );
 
 }
 

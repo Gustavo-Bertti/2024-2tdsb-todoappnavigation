@@ -32,6 +32,7 @@ const RegisterTask = ({navigation}: NativeStackScreenProps<RootStackParamList>) 
             <Button onPress={Situacao} title="Completo"/>
 
             <Button onPress={Add} title="Adicionar a tarefa"/>
+            <Button title="Registro de tarefas" onPress={() => navigation.navigate('ViewTasks')} />
         </View>
     );
 };

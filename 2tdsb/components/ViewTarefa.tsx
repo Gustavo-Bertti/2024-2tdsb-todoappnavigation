@@ -1,19 +1,23 @@
-import { useState } from "react";
-import { ScrollView, TextInput, Button , Text , FlatList} from "react-native";
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootStackParamList, Task} from '../App';
+import React from "react";
+import { View, Text, Button, FlatList } from "react-native";
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList, Task } from '../App';
 
-const ViewTasks = ({navigation, route}: NativeStackScreenProps<RootStackParamList>) =>{
+type ViewTasksProps = NativeStackScreenProps<RootStackParamList, 'ViewTasks'>;
 
-    const { params } = route;
-    const tasks: Task[] = params as Task[] || [];
+const ViewTasks: React.FC<ViewTasksProps> = ({ navigation, route }) => {
+  const { params } = route;
+  const tasks: Task[] = params?.tasks || [];
 
   const renderTask = ({ item }: { item: Task }) => (
-    <Text>{item.name}</Text> 
+    <View>
+      <Text>Nome: {item.name}</Text>
+      <Text>Concluída: {item.isFinished ? 'Sim' : 'Não'}</Text>
+    </View>
   );
 
   return (
-    <ScrollView>
+    <View>
       <FlatList
         data={tasks}
         renderItem={renderTask}
@@ -23,9 +27,8 @@ const ViewTasks = ({navigation, route}: NativeStackScreenProps<RootStackParamLis
         title="+ TAREFA"
         onPress={() => navigation.navigate("RegisterTask")}
       />
-    </ScrollView>
+    </View>
   );
-
 }
 
 export default ViewTasks;
